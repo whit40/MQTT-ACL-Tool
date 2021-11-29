@@ -18,12 +18,14 @@ def client_connect(client, host, port):
     client.connect(host, port)
 
 
-def on_message():
+def on_message(client, userdata, msg):
     print("In On_message!")
+    print("Topic: "+msg.topic+" Message: "+str(msg.payload))
 
 
 def on_connect(client,userdata,flags,rc):
     print("In On_connect!")
     payload = "test from ACL tool!"
-    client.publish("test/message", payload, qos=0, retain= False)
+    client.subscribe("test/message")
+    client.publish("test/message", payload, qos=0, retain=False)
 
