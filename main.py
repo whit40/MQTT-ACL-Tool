@@ -9,13 +9,11 @@ def main(argv):
     print("Hello World!")
 
     # process user input here
-    username, password, topiclist = parse_args(argv)
+    username, password, topiclist, hostname = parse_args(argv)
 
     client = MQTT.create_client(username, password)
 
-
-    # will need to change hostname manually for now
-    MQTT.client_connect(client, "mqttserver", 1883)
+    MQTT.client_connect(client, hostname, 1883)
 
     for topic in topiclist:
         message = "This message is from topic: " + topic

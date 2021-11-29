@@ -6,7 +6,7 @@ import sys
 def parse_args(argv):
 
     try:
-        opts, args = getopt.getopt(argv, "hu:p:i:")
+        opts, args = getopt.getopt(argv, "hu:p:i:H:")
     except getopt.GetoptError:
         print("Please check usage with -h")
         sys.exit(2)
@@ -14,6 +14,7 @@ def parse_args(argv):
     username = "none"
     password = "none"
     input_file = "none"
+    hostname = "none"
 
     for opt, arg in opts:
         if opt == '-h':
@@ -24,6 +25,8 @@ def parse_args(argv):
             username = arg
         elif opt == '-p':
             password = arg
+        elif opt == '-H':
+            hostname = arg
 
     topiclist = []
 
@@ -34,4 +37,4 @@ def parse_args(argv):
         f.close()
         print(topiclist)
 
-    return username, password, topiclist
+    return username, password, topiclist, hostname
