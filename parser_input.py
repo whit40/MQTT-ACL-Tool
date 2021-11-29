@@ -13,15 +13,25 @@ def parse_args(argv):
 
     username = "none"
     password = "none"
+    input_file = "none"
 
     for opt, arg in opts:
         if opt == '-h':
             print("Useage info here")
         elif opt == '-i':
-            print("input file")
+            input_file = arg
         elif opt == '-u':
             username = arg
         elif opt == '-p':
             password = arg
 
-    return username, password
+    topiclist = []
+
+    if input_file != "none":
+        f = open(input_file, "r")
+        for topic in f:
+            topiclist.append(topic.rstrip())
+        f.close()
+        print(topiclist)
+
+    return username, password, topiclist
