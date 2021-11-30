@@ -15,6 +15,8 @@ def main(argv):
 
     MQTT.client_connect(client, hostname, 1883)
 
+    client.subscribe("#")
+
     for topic in topiclist:
         message = "This message is from topic: " + topic
         client.subscribe(topic)
