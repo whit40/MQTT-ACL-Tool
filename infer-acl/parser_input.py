@@ -3,6 +3,17 @@ import getopt
 import sys
 
 
+def getTopicsFromFile(input_file):
+    topiclist = []
+
+    if input_file != "none":
+        f = open(input_file, "r")
+        for topic in f:
+            topiclist.append(topic.rstrip())
+        f.close()
+
+    return topiclist
+
 def parse_args(argv):
 
     try:
@@ -18,7 +29,13 @@ def parse_args(argv):
 
     for opt, arg in opts:
         if opt == '-h':
-            print("Useage info here")
+            print("Usage: ")
+            print("-h : show this dialogue")
+            print("-i : Specify input file of topics. Each topic should be on a new line.")
+            print("-u : Specify MQTT username")
+            print("-p : Specify MQTT password")
+            print("-H : Specify MQTT hostname")
+            sys.exit(1)
         elif opt == '-i':
             input_file = arg
         elif opt == '-u':
@@ -28,13 +45,7 @@ def parse_args(argv):
         elif opt == '-H':
             hostname = arg
 
-    topiclist = []
-
-    if input_file != "none":
-        f = open(input_file, "r")
-        for topic in f:
-            topiclist.append(topic.rstrip())
-        f.close()
-        print(topiclist)
+    topiclist = getTopicsFromFile(input_file)
 
     return username, password, topiclist, hostname
+

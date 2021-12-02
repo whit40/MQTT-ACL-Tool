@@ -1,12 +1,10 @@
 # Main file
 import MQTT
-import time
 from parser_input import parse_args
 import sys
 
 
 def main(argv):
-    print("Hello World!")
 
     # process user input here
     username, password, topiclist, hostname = parse_args(argv)
@@ -20,7 +18,14 @@ def main(argv):
     for topic in topiclist:
         message = "This message is from topic: " + topic
         client.subscribe(topic)
-        client.publish(topic, message, qos=0, retain=False)
+        if '#' not in topic:
+            client.publish(topic, message, qos=0, retain=False)
+
+
+    print("The tool will now start with this list of provided topics:")
+    print(topiclist)
+    print("After these topics are tried, the tool will keep listening. You may leave it running to find additional"
+          " topics, or exit by using ctrl + c.")
 
     client.loop_forever()
     client.disconnect()
