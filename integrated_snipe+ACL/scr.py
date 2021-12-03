@@ -10,7 +10,8 @@ def on_connect(client, userdata, flags, rc):
         connected = True
     else:
         print("Authorization error, wrong password")
-        connected = False
+        connected = "False2"
+        exit
     #print(client, userdata, flags, rc)
     #print("hi")
 
@@ -21,7 +22,7 @@ def on_publish(client,userdata, mid):
 #Client(client_id=”cl1”, clean_session=True, userdata=None, protocol=MQTTv311, transport=”tcp”)
 client =mqtt.Client()
 server = "172.16.208.110"
-client.username_pw_set(username="abcd",password="1234")
+client.username_pw_set(username="abcd",password="1334")
 client.on_connect = on_connect
 print("Connecting to",server)
 client.on_publish = on_publish
@@ -29,6 +30,8 @@ client.on_publish = on_publish
 client.connect(server)
 client.loop_start()
 while(connected != True):
+    if(connected == "False2"):
+        break
     time.sleep(0.1)
 client.publish("test", payload="Hollaaa")
 client.publish("test", payload="Heheh")
