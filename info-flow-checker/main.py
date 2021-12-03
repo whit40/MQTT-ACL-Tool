@@ -19,32 +19,26 @@ def main(argv):
 
     for user in userlist:
         for topic in user.topics:
-            all_topics[topic][user.name] = user.permission
+            all_topics[topic][user.name] = (user.permission,user.topics[topic])
 
     print("All topics: ", all_topics)
 
     # for each topic, check the users. If a low and high user are present,
     # check against permitted high/low pairs. If not permitted, record it.
 
-    permitted_pairs = {"test/message2": [('user', 'bob')]}
-
     for topic in all_topics:
+        print("Now checking topic: ", topic)
         for user1 in all_topics[topic]:
-            # print(user, all_topics[topic][user])
-            user_permission = all_topics[topic][user1]
-            current_user = user1
+            user1_permission = all_topics[topic][user1][0]
             for user2 in all_topics[topic]:
-                if user2 != current_user:
-                    if all_topics[topic][user2] != user_permission:
-                        for pairuser1, pairuser2 in permitted_pairs[topic]:
-                            if pairuser1 == current_user:
-                                if pairuser2 == user2:
-                                    print("no violation, mix permitted")
-                            elif pairuser2 == current_user:
-                                if pairuser1 == user2:
-                                    print("no violation, mix permitted")
-                            else:
-                                print("violation with users: ", current_user, user2, "On topic: ", topic)
+                if user2 != user1:
+                    user2_permission = all_topics[topic][user2][1]
+                    if user2_permission != user1_permission:
+                        if user1_permission == 'low':
+                            # print("User is: ", user1.name)
+                            if all_topics[topic][user1][1] == "write" or all_topics[topic][user1][1] == "readwrite":
+                                print("violation with users: (", user1,",", user2, ") on topic: ", topic)
+
 
 
     # print/log all recorded violations
