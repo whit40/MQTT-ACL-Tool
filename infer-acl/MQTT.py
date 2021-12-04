@@ -1,4 +1,3 @@
-# MQTT functions go here (publish, subscribe, etc.)
 import sys
 import paho.mqtt.client as paho
 
@@ -21,6 +20,7 @@ def client_connect(client, host, port):
     client.connect(host, port)
 
 
+# When we recieve a message from the broker, print it out and add the topic to the list of successes.
 def on_message(client, userdata, msg):
     print("Topic: ", msg.topic, " Message: ", str(msg.payload))
     successfultopics.add(msg.topic)
@@ -28,7 +28,6 @@ def on_message(client, userdata, msg):
 
 
 def on_connect(client, userdata, flags, rc):
-    global connected
     if rc == 0:
         print("Successfully connected")
     else:

@@ -1,8 +1,8 @@
-# Function(s) to parse user input go here
 import getopt
 import sys
 
 
+# Gets the list of topics to check from user-supplied file.
 def getTopicsFromFile(input_file):
     topiclist = []
 
@@ -14,8 +14,10 @@ def getTopicsFromFile(input_file):
 
     return topiclist
 
+
 def parse_args(argv):
 
+    # Get user arguments
     try:
         opts, args = getopt.getopt(argv, "hu:p:i:H:")
     except getopt.GetoptError:
@@ -27,6 +29,7 @@ def parse_args(argv):
     input_file = "none"
     hostname = "none"
 
+    # Check user arguments and act accordingly.
     for opt, arg in opts:
         if opt == '-h':
             print("Usage: ")
