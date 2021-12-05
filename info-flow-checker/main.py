@@ -30,11 +30,12 @@ def main(argv):
             user1_permission = all_topics[topic][user1][0]
             for user2 in all_topics[topic]:
                 if user2 != user1:
-                    user2_permission = all_topics[topic][user2][1]
+                    user2_permission = all_topics[topic][user2][0]
                     if user2_permission != user1_permission:
-                        if user1_permission == 'low':
+                        if user1_permission == 'low' and user2_permission == 'high':
                             if all_topics[topic][user1][1] == "write" or all_topics[topic][user1][1] == "readwrite":
-                                print("violation with users: (", user1,",", user2, ") on topic: ", topic)
+                                if all_topics[topic][user2][1] != "write":
+                                    print("violation with users: (", user1,",", user2, ") on topic: ", topic)
 
 
 if __name__ == "__main__":
