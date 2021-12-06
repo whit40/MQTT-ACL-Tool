@@ -11,6 +11,7 @@ class mqtt_user:
 
 def get_input_file(argv):
 
+    # Get user arguments
     try:
         opts, args = getopt.getopt(argv, "hi:")
     except getopt.GetoptError:
@@ -19,6 +20,7 @@ def get_input_file(argv):
 
     input_file = None
 
+    # Check user arguments and act accordingly.
     for opt, arg in opts:
         if opt == '-h':
             print("Usage: ")
@@ -40,6 +42,7 @@ def parse_input(argv):
 
     f = open(input_file, "r")
 
+    # Get list of usernames from file
     for line in f:
         if len(line) > 3:
             splitline = line.split()
@@ -47,10 +50,12 @@ def parse_input(argv):
                 usernamelist.append(splitline[1])
     f.close()
 
+    # create user object for each user, create a list of users
     userlist = []
     for username in usernamelist:
         userlist.append(mqtt_user(username, None))
 
+    # Fill each user object with the appropriate topics and permissions.
     f = open(input_file, "r")
     currentuser = None
     for line in f:
