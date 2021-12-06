@@ -1,4 +1,22 @@
-# MQTT-ACL-Tool
+## Integrated Snipe + ACL
+This tool has the two components integrated into it. Once in the root directory of the repo, just run -
+
+```
+$pip3 install pyshark
+$python3 integrated_snipe+ACL/main.py
+```
+
+Then you can either choose to snipe packets, or if thats already done, you can choose to run the ACL inference tool.
+The options within the runtime are self explanatory. More details on the individual components can be found below.
+
+##### Note - <within listener.py, you might want to change the address of the MQTT server, which is currently hardcoded into the program>
+
+## Inference with Wireshark Integration
+This tool is designed to run in background, sniffing and analyzing MQTT related packets over the internet. 
+
+The inputs needed by this program is just the time to sniff packets (in seconds). 
+
+The result of this program will be the complete list of obtained username, paswords and the respective topics. (Only the successfully connected requests). 
 
 ## ACL Infer Tool
   This tool is designed to allow a user to determine what topics they have access to on an MQTT system. To do so, the user needs to supply the following inputs to the program:
@@ -20,6 +38,9 @@
   
   -i: Specify input file, the edited ACL.
   
-  The policy follows the "read up, write down" of Biba. If there is a topic with high and low users, the read/write permissions are checked. The low user cannot have the read or readwrite permissions, since these would constitute "write ups." This also covers the case of "read down"- if a low user writes to a topic and the high user reads, a read down has occured. Essentially, the allowed case is when a low user can read on a topic where a high user writes. This protects the integrity of the data, which is the goal of the model.
+  The policy follows the "read up, write down" of Biba. If there is a topic with high and low users, the read/write permissions are checked. We have a violation if the low user has either write or readwrite permissions, and the high user does not have just write permission. Essentially, the allowed case is when a low user can read on a topic where a high user writes. This protects the integrity of the data, which is the goal of the model. See the below chart for a clearer idea of what combinations are permitted, where H represents high, and L represents low:
   
-## ACL Infer Tool with Wireshark Integration
+  ![image](https://user-images.githubusercontent.com/48630529/144770577-7ed385f4-2ab9-4454-817e-256d12034eba.png)
+
+  
+
