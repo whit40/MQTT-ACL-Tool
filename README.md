@@ -38,6 +38,9 @@ The result of this program will be the complete list of obtained username, paswo
   
   -i: Specify input file, the edited ACL.
   
-  The policy follows the "read up, write down" of Biba. If there is a topic with high and low users, the read/write permissions are checked. The low user cannot have the read or readwrite permissions, since these would constitute "write ups." This also covers the case of "read down"- if a low user writes to a topic and the high user reads, a read down has occured. Essentially, the allowed case is when a low user can read on a topic where a high user writes. This protects the integrity of the data, which is the goal of the model.
+  The policy follows the "read up, write down" of Biba. If there is a topic with high and low users, the read/write permissions are checked. We have a violation if the low user has either write or readwrite permissions, and the high user does not have just write permission. Essentially, the allowed case is when a low user can read on a topic where a high user writes. This protects the integrity of the data, which is the goal of the model. See the below chart for a clearer idea of what combinations are permitted, where H represents high, and L represents low:
+  
+  ![image](https://user-images.githubusercontent.com/48630529/144770577-7ed385f4-2ab9-4454-817e-256d12034eba.png)
+
   
 
