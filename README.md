@@ -1,9 +1,9 @@
 ## Integrated Snipe + ACL
 This tool has the two components integrated into it. Once in the root directory of the repo, just run -
 
-$pip3 install pyshark
+'''$pip3 install pyshark
 
-$python3 integrated_snipe+ACL/main.py
+$python3 integrated_snipe+ACL/main.py'''
 
 Then you can either choose to snipe packets, or if thats already done, you can choose to run the ACL inference tool.
 The options within the runtime are self explanatory. More details on the individual components can be found below.
